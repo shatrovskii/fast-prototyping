@@ -14,6 +14,7 @@
             font: 14px OpenSans, Arial, Helvetica, sans-serif;
             font-family: OpenSans, sans-serif;
         }
+
         .base-container {
             width: 1400px;
             height: 1000px;
@@ -22,6 +23,7 @@
             box-sizing: border-box;
             transform-origin: top left;
         }
+
         .base-widget {
             position: absolute;
             top: 0;
@@ -51,18 +53,19 @@
         }
 
         .context-menu {
-            opacity: 0;
             bottom: 20px;
             display: flex;
             justify-content: space-between;
             padding-right: 19px;
             box-sizing: border-box;
         }
+
         .color-menu {
-            bottom: 92px;
+            bottom: 77px;
             display: flex;
             flex-wrap: wrap;
         }
+
         .color-button {
             width: 28px;
             height: 28px;
@@ -72,40 +75,43 @@
             margin-right: 11px;
             margin-bottom: 11px;
         }
+
         .color-button--yellow {
             background-color: #fbe359;
         }
+
         .color-button--orange {
             background-color: #ff6e48;
         }
+
         .color-button--blue {
             background-color: #3478ff;
         }
+
         .color-button--white {
             background-color: #ffffff;
         }
+
         .color-button--black {
             background-color: #000000;
         }
+
         .menu {
             width: 150px;
-            opacity: 0.8;
             border-radius: 4px;
             background-color: #000000;
             position: absolute;
             padding-top: 11px;
             padding-left: 19px;
             left: calc(50% - 75px);
-            transition: opacity cubic-bezier(0.22, 0.61, 0.36, 1) .3s;
-            opacity: 0;
             box-sizing: border-box;
+            display: none;
         }
-        .menu.opened {
-            opacity: 0.8;
-        }
+
         .trash-button {
             padding: 2px 6px;
         }
+
         .legend-button {
             position: absolute;
             top: 14px;
@@ -113,7 +119,8 @@
             width: 40px;
             height: 40px;
         }
-        .legend-content {
+
+        .legend {
             padding: 63px 76px 50px 81px;
             border-radius: 4px;
             background-color: #ffffff;
@@ -121,28 +128,25 @@
             position: absolute;
             left: calc(50% - 300px);
             top: calc(50% - 300px);
+            transition: opacity cubic-bezier(0.22, 0.61, 0.36, 1) .3s;
         }
-        .legend.opened {
-            opacity: 1;
-            display: block;
-        }
-        .legend-content .close-button {
+
+        .legend .close-button {
             position: absolute;
             top: 20px;
             right: 20px;
         }
+
         .button {
             cursor: pointer;
         }
-        .legend {
+
+        .legend-overlay {
             position: absolute;
+            top: 0;
             width: 100%;
             height: 100%;
             display: none;
-            opacity: 0;
-            top: 0px;
-            left: 0px;
-            transition: opacity cubic-bezier(0.22, 0.61, 0.36, 1) .3s;
         }
 
     </style>
@@ -186,15 +190,17 @@
 </div>
 <div id="displayLegend" class="legend-button button">
     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
-        <path d="M18 30h4V18h-4v12zm2-30C8.96 0 0 8.96 0 20s8.96 20 20 20 20-8.96 20-20S31.04 0 20 0zm0 36c-8.82 0-16-7.18-16-16S11.18 4 20 4s16 7.18 16 16-7.18 16-16 16zm-2-22h4v-4h-4v4z" opacity=".2"/>
+        <path d="M18 30h4V18h-4v12zm2-30C8.96 0 0 8.96 0 20s8.96 20 20 20 20-8.96 20-20S31.04 0 20 0zm0 36c-8.82 0-16-7.18-16-16S11.18 4 20 4s16 7.18 16 16-7.18 16-16 16zm-2-22h4v-4h-4v4z"
+              opacity=".2"/>
     </svg>
 </div>
-<div id="legend" class="legend">
-    <div id="legend-overlay" class="legend-overlay"></div>
-    <div class="legend-content">
+<div id="legend" class="legend-overlay">
+    <div class="legend">
         <div id="hideLegend" class="close-button button">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-                <path fill="#030303" fill-rule="evenodd" d="M7.64 6.58l5.3-5.3c.3-.3.3-.77 0-1.06-.3-.3-.76-.3-1.05 0l-5.33 5.3-5.3-5.3C.97-.08.5-.08.22.22c-.3.3-.3.77 0 1.06l5.3 5.3-5.3 5.3c-.3.3-.3.78 0 1.07.3.3.77.3 1.06 0l5.3-5.3 5.3 5.3c.3.3.78.3 1.07 0 .3-.3.3-.77 0-1.06l-5.3-5.33z" opacity=".2"/>
+                <path fill="#030303" fill-rule="evenodd"
+                      d="M7.64 6.58l5.3-5.3c.3-.3.3-.77 0-1.06-.3-.3-.76-.3-1.05 0l-5.33 5.3-5.3-5.3C.97-.08.5-.08.22.22c-.3.3-.3.77 0 1.06l5.3 5.3-5.3 5.3c-.3.3-.3.78 0 1.07.3.3.77.3 1.06 0l5.3-5.3 5.3 5.3c.3.3.78.3 1.07 0 .3-.3.3-.77 0-1.06l-5.3-5.33z"
+                      opacity=".2"/>
             </svg>
         </div>
         <svg xmlns="http://www.w3.org/2000/svg" width="443" height="484" viewBox="0 0 445 482">
@@ -220,7 +226,8 @@
                 <path stroke="#3478FF" stroke-width="2" d="M1 188l78 .9M1 319l78 .9M1 440l83.17.95" stroke-linecap="round"/>
                 <path stroke="#3478FF" stroke-width="2" d="M2 444c26.7-.6 51.4-1.85 77.87-2.75C106.33 440.35 2 444 2 444z" stroke-linecap="round" stroke-linejoin="round"/>
                 <path stroke="#3478FF" stroke-width="2" d="M365 306l78 .9m-77-118.73c26 .3 52-.4 78-.1m-78-22.9c26 .3 52-.4 78-.1M180 188l78 .9" stroke-linecap="round"/>
-                <path stroke="#3478FF" stroke-width="2" d="M176 308.45c23.63.28 70.88-.3 70.88-.3l8.54 15.16 7.27-16.3M179 438.9c24.08.3 54.73.83 72.23-.3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path stroke="#3478FF" stroke-width="2" d="M176 308.45c23.63.28 70.88-.3 70.88-.3l8.54 15.16 7.27-16.3M179 438.9c24.08.3 54.73.83 72.23-.3" stroke-linecap="round"
+                      stroke-linejoin="round"/>
                 <path stroke="#3478FF" stroke-width="2" d="M244 427l18.57 11.9-17.53 11.4" stroke-linecap="round" stroke-linejoin="round"/>
                 <path stroke="#3478FF" stroke-width="2" d="M180.56 164l-.56 24M1.56 300L1 319m364.56-13l-.56 19" stroke-linecap="round"/>
                 <path stroke="#3478FF" stroke-width="2" d="M80.56 301L80 320l.56-19z" stroke-linecap="round" stroke-linejoin="round"/>
@@ -246,8 +253,11 @@
                     <path d="M376 65.8c16.1-17.85 22.36-23.32 27.54-28.9C414.44 25.18 412.38 25 431.1 8"/>
                     <path d="M431.1 65.8c-16.12-17.85-22.37-23.32-27.56-28.9C392.64 25.18 394.7 25 376 8"/>
                 </g>
-                <path stroke="#3478FF" stroke-width="2" d="M8.46 63C8.8 9.9 9.7 30.54 8 1M7 1l66 .9m-.44-.9L72 65m0-.32c-45.32 1.66-23.66 2.1-65-.68m209.9-1.05c-41.56-3.1-36.13-75.3 17.25-59.26 15.47 4.6 21.6 30.13 14.72 42.7-9.15 16.7-19.33 17.93-33.9 17.93" stroke-linecap="round"/>
-                <path stroke="#3478FF" stroke-width="2" d="M374.2 440.35L428.45 405S390 435.23 372.1 452.9c-2.34 2.3 49.7-38.18 65.86-44.76 2.02-.83-53.82 44.77-53.82 44.77" stroke-linecap="round" stroke-linejoin="round"/>
+                <path stroke="#3478FF" stroke-width="2"
+                      d="M8.46 63C8.8 9.9 9.7 30.54 8 1M7 1l66 .9m-.44-.9L72 65m0-.32c-45.32 1.66-23.66 2.1-65-.68m209.9-1.05c-41.56-3.1-36.13-75.3 17.25-59.26 15.47 4.6 21.6 30.13 14.72 42.7-9.15 16.7-19.33 17.93-33.9 17.93"
+                      stroke-linecap="round"/>
+                <path stroke="#3478FF" stroke-width="2" d="M374.2 440.35L428.45 405S390 435.23 372.1 452.9c-2.34 2.3 49.7-38.18 65.86-44.76 2.02-.83-53.82 44.77-53.82 44.77"
+                      stroke-linecap="round" stroke-linejoin="round"/>
             </g>
         </svg>
     </div>
